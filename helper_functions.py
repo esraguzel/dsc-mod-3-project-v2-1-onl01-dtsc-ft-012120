@@ -5,6 +5,23 @@ import matplotlib.pyplot as plt
 
 def sampled(X_train, X_test, y_train, y_test):
     
+    """Returns sampled X_train, y_train by using smote().
+    Returns sampled X_test, y_test by using RandomOverSampler().
+
+    Parameters:
+    X_train (pd.dataframe): X_train set to be sampled
+    X_test (pd.dataframe): X_test set to be sampled
+    y_train (pd.series): y_train set to be sampled
+    y_test (pd.series): y_test set to be sampled
+
+    Returns:
+    X_train (pd.dataframe): sampled X_train
+    X_test (pd.dataframe): sampled X_test
+    y_train (pd.series): sampled y_train
+    y_test (pd.series): sampled y_test
+
+    """
+    
     from imblearn.over_sampling import SMOTE
     from imblearn.over_sampling import RandomOverSampler
     
@@ -18,6 +35,24 @@ def sampled(X_train, X_test, y_train, y_test):
 
 def print_accuracy_report(X_train, X_test, y_train, y_test, model):
     
+    """Takes in  X_train, X_test, y_train, y_test, model and calculates and prints accuracy_score, 
+    f1_score, confusion_matrix, classification_report for X_train, X_test, y_train, y_test
+    
+    Parameters:
+    
+    X_train (pd.dataframe): 
+    X_test (pd.dataframe):
+    y_train (pd.series):
+    y_test (pd.series):
+    model: classifier
+
+    Returns:
+    
+    Returns accuracy_score, f1_score, confusion_matrix, classification_report for X_train, X_test,
+    y_train, y_test
+
+    """
+    
     from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classification_report
 
     training_preds = model.predict(X_train)
@@ -30,16 +65,30 @@ def print_accuracy_report(X_train, X_test, y_train, y_test, model):
     print("\n\nTraining Accuracy: {:.4}%".format(training_accuracy * 100))
     print("Validation Accuracy: {:.4}%".format(val_accuracy * 100))
     print("F1 Score: {:.4}%". format(f1))
-   
-    
 
     # Classification report
+    
     print("\n\n\nClassification Report:")
     print("---------------------")
     print(classification_report(y_test, y_pred))
 
     
 def plot_con_matrix(y_test, y_pred, class_names, cmap=plt.cm.Blues):
+    
+    """Returns confusion matrix for y_test and y_pred 
+
+    Parameters: 
+    y_test (pd.Series):
+    y_pred (pd.series):
+    class_names: names of the target variable
+    cmap: colormap for the matrix
+
+
+    Returns:
+    
+    Returns confusion matrix.
+
+    """
     
     import numpy as np
     import itertools
@@ -77,6 +126,18 @@ def plot_con_matrix(y_test, y_pred, class_names, cmap=plt.cm.Blues):
     
 def plot_roc_curve(fpr, tpr):
     
+    """ Plots ROC curve.
+    
+
+    Parameters:
+    fpr: false positive rate
+    tpr: true positive rate
+    
+    Returns:
+    Returns ROC curve.
+
+    """
+    
     plt.style.use('ggplot')
     plt.figure(figsize=(10, 8))
     plt.plot(fpr, tpr, color='darkorange', lw=4, label='ROC curve')
@@ -92,6 +153,21 @@ def plot_roc_curve(fpr, tpr):
     plt.show()
 
 def grid_search(X_train, X_test, y_train, y_test, model, model_name, params, cv=3):
+    
+    """Returns confusion matrix for y_test and y_pred 
+
+    Parameters: 
+    y_test (pd.Series):
+    y_pred (pd.series):
+    class_names: names of the target variable
+    cmap: colormap for the matrix
+
+
+    Returns:
+    
+    Returns confusion matrix.
+
+    """
     
     from sklearn.model_selection import GridSearchCV
     # Create grid search object
